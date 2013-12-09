@@ -16,7 +16,7 @@ module MatrixCi
     end
 
     def to_s
-      str = "%s %10s %40s %25s %15s %s" % [@id, @projectname, @branch, @committer, @ref, @subject]
+      str = "%s %10s %10s %40s %25s %15s %s" % [@id, @started[11,8], @projectname, @branch, @committer, @ref, @subject]
 
       color = :white
       if running?
