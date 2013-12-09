@@ -1,7 +1,8 @@
 #!/bin/bash
 
 while true; do 
+  OUTPUT=$(bundle exec ci all)
   clear
-  bundle exec ci all
+  echo "$OUTPUT"
   sleep 2
 done
