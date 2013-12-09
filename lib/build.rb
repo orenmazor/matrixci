@@ -1,4 +1,4 @@
-require './lib/adapters/adapter'
+require File.dirname(__FILE__)+'/adapters/adapter'
 require 'rainbow'
 
 module MatrixCi

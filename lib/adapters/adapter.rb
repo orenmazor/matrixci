@@ -1,4 +1,4 @@
-Dir["./lib/adapters/*.rb"].each {|f| require f}
+Dir[File.dirname(__FILE__) + "/lib/adapters/*.rb"].each {|f| require f}
 
 module MatrixCi
   class Adapter

@@ -1,6 +1,6 @@
 require "matrixci/version"
 require 'yaml'
-Dir["./adapters"].each {|f| require f}
+Dir[File.dirname(__FILE__) + "/adapters/*.rb"].each {|f| require f}
 require "project"
 
 module MatrixCi
