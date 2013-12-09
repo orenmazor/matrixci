@@ -12,10 +12,11 @@ module MatrixCi
       @outcome = options[:outcome]
       @subject = options[:subject]
       @ref = options[:ref]
+      @projectname = options[:projectname]
     end
 
     def to_s
-      str = "%s %40s %25s %15s %s" % [@id, @branch, @committer, @ref, @subject]
+      str = "%s %10s %40s %25s %15s %s" % [@id, @projectname, @branch, @committer, @ref, @subject]
 
       color = :white
       if running?

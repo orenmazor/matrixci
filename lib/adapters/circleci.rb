@@ -15,7 +15,7 @@ module MatrixCi
       result = open("https://circleci.com/api/v1/recent-builds?circle-token=#{@token}").read
       builds = JSON.parse(result)
       builds.map do |build|
-        Build.new(id: build["build_num"], branch: build["branch"], committer: build["committer_name"],started: build["start_time"],ended: build["stop_time"], outcome: build["outcome"], ref: build["vcs_revision"], subject: build["subject"])
+        Build.new(id: build["build_num"], branch: build["branch"], committer: build["committer_name"],started: build["start_time"],ended: build["stop_time"], outcome: build["outcome"], ref: build["vcs_revision"], subject: build["subject"], projectname: build["vcs_url"].split("/").last)
       end
     end
 
