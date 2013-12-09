@@ -10,11 +10,7 @@ if ["", "all"].include?(scope)
       puts build.to_s
     end
   end
-elsif scope == mine
-  MatrixCi::Project.all.each do |project|
-    puts project.mine.to_s
-  end
-elsif ["show", "cancel", "retry"].include(scope)
+elsif ["show", "cancel", "retry"].include?(scope)
   buildid = ARGV[1]
   MatrixCi::Project.send(scope, buildid)
 end
