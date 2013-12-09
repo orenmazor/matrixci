@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'matrixci'
+MatrixCi::Project.all.each do |project|
+  project.all_recent_builds.each do |build|
+    puts build.to_s
+  end
+end

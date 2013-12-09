@@ -1,0 +1,3 @@
+myproj:
+  adapter: circleci
+  token: asdf
