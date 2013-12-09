@@ -3,7 +3,7 @@ require './lib/adapters/adapter'
 module MatrixCi
   class Project
     def self.all
-      conf = YAML.load(File.open(File.dirname(__FILE__) + "/../conf/config.yml").read)
+      conf = YAML.load(File.open(File.expand_path("~/.matrixci.conf")).read)
 
       conf.keys.map {|key| Project.new(key, conf[key]["adapter"], conf[key]["token"])}
     end

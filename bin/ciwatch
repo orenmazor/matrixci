@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-while true; do 
-  clear
-  date
-  bundle exec ci all
-  sleep 30
-done
+while true
+  puts Time.now.utc
+  system("bundle exec ci all")
+  sleep(30)
+end
