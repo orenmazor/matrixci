@@ -40,5 +40,14 @@ module MatrixCi
     def runtime
       (DateTime.parse(@ended) - DateTime.parse(@started)).to_i/60
     end
+
+    def cancel
+    end
+
+    def retry
+    end
+
+    def show
+    end
   end
 end
