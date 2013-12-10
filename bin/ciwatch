@@ -2,6 +2,6 @@
 
 while true
   puts Time.now.utc
-  system("bundle exec ci all")
+  system("ci all")
   sleep(30)
 end
