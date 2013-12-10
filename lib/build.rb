@@ -26,7 +26,12 @@ module MatrixCi
         color = :red unless successful?
       end
 
+      str = str.bright if @highlight
       str.foreground(color)
+    end
+
+    def mine
+      @highlight = true
     end
 
     def successful?
