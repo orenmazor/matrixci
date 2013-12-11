@@ -50,10 +50,14 @@ x = App.new do
   end # stack
   status_line :row => FFI::NCurses.LINES-1
 
-  # while ((ch = @window.getchar()) != 'q')
-  #   lb.list get_latest_runs
-  #   @form.repaint
-  #   @window.wrefresh
-  #   sleep(1)
-  # end
+  while true
+    sleep(10)
+    lb.list get_latest_runs
+    @form.repaint
+    @window.wrefresh
+  end
 end # app
+
+while true
+  x.form
+end
