@@ -21,6 +21,7 @@ class CellRenderer
   rescue JSON::ParserError
   end
 end
+
 def get_latest_runs
   builds = []
   MatrixCi::Project.all.each do |project|
@@ -42,6 +43,7 @@ App.new do
   lb.should_show_focus = false
   lb.cell_renderer CellRenderer.new
 
+  @form.bind_key("q") {  exit }
   stack :margin_top => 1, :height => FFI::NCurses.LINES-3 do
 
   end # stack
