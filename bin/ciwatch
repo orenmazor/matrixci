@@ -33,7 +33,7 @@ def get_latest_runs
   builds
 end
 
-App.new do 
+x = App.new do 
   header = app_header "MatrixCI", :text_center => "YOLO", :text_right =>"MatrixCI", 
     :color => :black, :bgcolor => :white, :attr => :bold 
   message "You are in a crowded room. Lots of people are committing code. There is only one obvious exit, q."
@@ -49,8 +49,19 @@ App.new do
 
   end # stack
   status_line :row => FFI::NCurses.LINES-1
+
+  while true
+    lb.list get_latest_runs
+    @form.repaint
+    @window.wrefresh
+    sleep(1)
+  end
 end # app
 
+while true
+  x.refresh
+  sleep(10)
+end
 # while true
 #   puts Time.now.utc
 #   system("ci all")
