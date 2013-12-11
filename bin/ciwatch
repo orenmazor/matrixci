@@ -10,8 +10,8 @@ class CellRenderer
   def repaint g, r, c, crow, content, focus_type, selected
     color = $datacolor
     att = NORMAL
-    att = REVERSE if selected
     build = JSON.parse(content)
+    att = REVERSE if selected || build["highlight"]
     color = get_color($datacolor, :yellow, :black) if build["color"] == "yellow"
     color = get_color($datacolor, :red, :black) if build["color"] == "red" 
     color = get_color($datacolor, :green, :black) if build["color"] == "green"
@@ -50,20 +50,10 @@ x = App.new do
   end # stack
   status_line :row => FFI::NCurses.LINES-1
 
-  while true
-    lb.list get_latest_runs
-    @form.repaint
-    @window.wrefresh
-    sleep(1)
-  end
+  # while ((ch = @window.getchar()) != 'q')
+  #   lb.list get_latest_runs
+  #   @form.repaint
+  #   @window.wrefresh
+  #   sleep(1)
+  # end
 end # app
-
-while true
-  x.refresh
-  sleep(10)
-end
-# while true
-#   puts Time.now.utc
-#   system("ci all")
-#   sleep(30)
-# end
