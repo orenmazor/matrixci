@@ -38,6 +38,7 @@ App.new do
   message "You are in a crowded room. Lots of people are committing code. There is only one obvious exit. Ctrl-c"
 
   lb = listbox :list => get_latest_runs, :title => "[ Latest Builds ]", :name => "tasklist", :row => 1, :height => Ncurses.LINES-4, :width => Ncurses.COLS-1
+  lb.truncation_required = false
   lb.should_show_focus = false
   lb.cell_renderer CellRenderer.new
 
