@@ -1,17 +1,45 @@
 #!/usr/bin/env ruby
-#
 
+require 'json'
+require 'matrixci'
 require 'rbcurse/core/util/app'
 
-def help_text
-      <<-eos
-          eos
+class CellRenderer
+  attr_accessor :display_length
+
+  def repaint g, r, c, crow, content, focus_type, selected
+    color = $datacolor
+    att = NORMAL
+    att = REVERSE if selected
+    build = JSON.parse(content)
+    color = get_color($datacolor, :yellow, :black) if build["color"] == "yellow"
+    color = get_color($datacolor, :red, :black) if build["color"] == "red" 
+    color = get_color($datacolor, :green, :black) if build["color"] == "green"
+    g.wattron(Ncurses.COLOR_PAIR(color) | att)
+    g.mvwprintw(r, c, "%s", :string, build["str"]);
+    g.wattroff(Ncurses.COLOR_PAIR(color) | att)
+  rescue JSON::ParserError
+  end
+end
+def get_latest_runs
+  builds = []
+  MatrixCi::Project.all.each do |project|
+    project.all_recent_builds.each do |build|
+      builds << build.to_json
+    end
+  end
+
+  builds
 end
 
 App.new do 
   header = app_header "MatrixCI", :text_center => "YOLO", :text_right =>"MatrixCI", 
     :color => :black, :bgcolor => :white, :attr => :bold 
-  message "Press F10 to exit from here, F1 for help, F2 for menu"
+  message "You are in a crowded room. Lots of people are committing code. There is only one obvious exit. Ctrl-c"
+
+  lb = listbox :list => get_latest_runs, :title => "[ Latest Builds ]", :name => "tasklist", :row => 1, :height => Ncurses.LINES-4, :width => Ncurses.COLS-1
+  lb.should_show_focus = false
+  lb.cell_renderer CellRenderer.new
 
   stack :margin_top => 1, :height => FFI::NCurses.LINES-3 do
 
