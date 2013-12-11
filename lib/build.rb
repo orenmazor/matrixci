@@ -1,5 +1,6 @@
 require File.dirname(__FILE__)+'/adapters/adapter'
 require 'rainbow'
+require 'json'
 
 module MatrixCi
   class Build
@@ -13,6 +14,12 @@ module MatrixCi
       @subject = options[:subject]
       @ref = options[:ref]
       @projectname = options[:projectname]
+    end
+
+    def to_json
+      str = "%s %10s %10s %40s %25s %15s %s" % [@id, @started.nil? ? "?" : @started[11,8], @projectname, @branch, @committer, @ref, @subject]
+
+      {:str => str, :highlight => @highlight, :color => running? ? :yellow : successful? ? :green : :red }.to_json
     end
 
     def to_s
