@@ -17,7 +17,14 @@ module MatrixCi
     end
 
     def all_recent_builds
-      result = open("https://circleci.com/api/v1/recent-builds?circle-token=#{@token}").read
+      result = nil
+      
+      while !result
+        begin
+          result = open("https://circleci.com/api/v1/recent-builds?circle-token=#{@token}").read
+        rescue OpenURI::HTTPError => e
+        end
+      end
       builds = JSON.parse(result)
       builds.map do |build|
         b = Build.new(id: build["build_num"], branch: build["branch"], committer: build["committer_name"],started: build["start_time"],ended: build["stop_time"], outcome: build["outcome"], ref: build["vcs_revision"], subject: build["subject"], projectname: build["vcs_url"].split("/").last)
